@@ -9,7 +9,7 @@ class Judje
             return;
         }
 
-        $dice = self::to_arrays($arr);
+        $dice = self::toSortedArrays($arr);
         $first = $dice[0];
         $last = $dice[array_key_last($dice)];
 
@@ -21,52 +21,43 @@ class Judje
 
     private static function compare($dieA, $dieB): void
     {
-        $countA = array_count_values($dieA);
-        $countB = array_count_values($dieB);
-
-        // Sort by face value
-        ksort($countA);
-        ksort($countB);
-        $sortedA = [];
-
-        foreach ($countA as $val => $count) {
-            $sortedA[] = ['val' => $val, 'count' => $count];
-        }
-
-        $sortedB = [];
-        foreach ($countB as $val => $count) {
-            $sortedB[] = ['val' => $val, 'count' => $count];
-        }
+        $countA = array_pop($dieA);
+        $countB = array_pop($dieB);
 
         $wins = 0;
-        $cumulativeB = 0;
+        $faceDuplicates = 0;
         $j = 0;
-
-        foreach ($sortedA as $a) {
-            while ($j < count($sortedB) && $sortedB[$j]['val'] < $a['val']) {
-                $cumulativeB += $sortedB[$j]['count'];
+        foreach ($dieA as $a) {
+            while ($j < count($dieB) && $dieB[$j]['val'] < $a['val']) {
+                $faceDuplicates += $dieB[$j]['count'];
                 $j++;
             }
-            $wins += $a['count'] * $cumulativeB;
+            $wins += $a['count'] * $faceDuplicates;
         }
-
-        $total = array_sum($countA) * array_sum($countB);
-        echo $wins / $total;
+        $total = $countA * $countB;
+        echo "\n" . $wins / $total;
         echo "\n";
-
     }
 
-    private static function compare_faces($a, $b): int
-    {
-        if (floor($a) != $a || floor($b) != $b) throw new exception("you cannot use float");
-        return $a <=> $b;
-    }
-
-    private static function to_arrays(array $strings): array
+    private static function toSortedArrays(array $strings): array
     {
         $result = [];
+        $nums = [];
         foreach ($strings as $string) {
-            $result[] = explode(",", $string);
+            $nums[] = explode(",", $string);
+
+        }
+
+        foreach ($nums as $die) {
+            $counted = array_count_values($die);
+            ksort($counted);
+            $sorted = [];
+            foreach ($counted as $val => $count) {
+                if(floor($val) != $val) throw new exception("all numbers should be whole!");
+                $sorted[] = ['val' => $val, 'count' => $count,];
+            }
+            $sorted['total'] = array_sum($counted);
+            $result[] = $sorted;
         }
         return $result;
     }
