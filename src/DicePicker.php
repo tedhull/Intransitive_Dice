@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-class GameProcessor
+class DicePicker
 {
     private static $dice;
     private static $botsChoice;

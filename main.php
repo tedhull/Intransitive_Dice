@@ -4,7 +4,7 @@ require_once 'vendor/autoload.php';
 use App\Messenger;
 use App\DiceValidator;
 use App\OrderDefiner;
-use App\GameProcessor;
+use App\DicePicker;
 use App\ProbabilityComputer;
 
 start();
@@ -23,7 +23,7 @@ function play(): void
 {
     try {
         $userMovesFirst = OrderDefiner::DefineOrder();
-        GameProcessor::startGame($userMovesFirst);
+        DicePicker::startGame($userMovesFirst);
     } catch (Exception $e) {
         Messenger::exception($e);
     }
