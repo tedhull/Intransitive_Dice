@@ -44,7 +44,7 @@ class DiceValidator
             ksort($counted);
             $sorted = [];
             foreach ($counted as $val => $count) {
-                if (intval($val) != $val || floor($val) != $val) throw new \Exception("all numbers should be whole!");
+                if (intval($val) != $val) throw new \Exception("all numbers should be whole!");
                 $sorted[] = ['val' => $val, 'count' => $count,];
             }
             $sorted['total'] = array_sum($counted);
