@@ -7,7 +7,8 @@ class OrderDefiner
     public static function DefineOrder()
     {
         Messenger::message("Let's figure out who makes the first move!");
-        $botNum = rand(0, 1);
+        $botNum = random_int(0, 1);
+
         self::$selectedNum = $botNum;
         $key = hash('sha3-512',random_bytes(16));
         $hash = hash_hmac('sha3-512', $botNum, $key);

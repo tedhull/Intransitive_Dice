@@ -22,8 +22,7 @@ class DiceRoller
     }
     private static function rollDie($die, string $roller)
     {
-        $index = rand(0,count($die)-1);
-        $num = (int)$die[$index];
+        $num = $die[random_int(0,count($die)-1)];
         $key = hash('sha3-512',random_bytes(16));
         $hash = hash_hmac('sha3-512', $num, $key);
         Messenger::message("I roll $roller dice, there is a random value\n(HMAC={$hash})\n Choose number under 6");
