@@ -1,9 +1,6 @@
 <?php
 
 namespace App;
-
-use App\TableDrawer;
-
 class UIDrawer
 {
     const string BASIC_UI = "X - exit\n? - help\nT - probabilities table\n";
@@ -12,6 +9,17 @@ class UIDrawer
     {
         Messenger::message("0 - 0\n1 - 1\n" . self::BASIC_UI);
         return self::readInput([0, 1]);
+    }
+
+    public static function chooseNumber()
+    {
+        $expected = [];
+        for ($i = 0; $i < 6; $i++) {
+            $expected[] = $i;
+            Messenger::message("$i - $i");
+        }
+        Messenger::message(self::BASIC_UI);
+        return self::readInput($expected);
     }
 
     public static function pickDie()
@@ -26,7 +34,6 @@ class UIDrawer
             Messenger::message("{$index} [{$strDie}]");
             $index++;
 
-
         }
         Messenger::message(self::BASIC_UI);
         return self::readInput($expected);
@@ -40,15 +47,17 @@ class UIDrawer
                 die();
             case '?':
                 Messenger::help();
-                break;
+                return -1;
             case 't':
                 TableDrawer::DrawTable();
-                break;
+                return -1;
             default:
         }
         foreach ($expected as $val) {
             if ($val == $input) return $val;
         }
-        throw new \Exception("Invalid input,please select one of suggested options.");
+
+        Messenger::message("Invalid input,please select one of suggested options.");
+        return -1;
     }
 }

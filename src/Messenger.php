@@ -13,11 +13,11 @@ class Messenger
     {
         self::message($ex->getMessage());
         self::help();
+        die();
     }
 
     public static function help(): void
     {
         self::message(self::HELP_MESSAGE);
-        die();
     }
 }
