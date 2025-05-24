@@ -24,8 +24,8 @@ class DiceRoller
     {
         $index = rand(0,count($die)-1);
         $num = (int)$die[$index];
-        $key = bin2hex(openssl_random_pseudo_bytes(32));
-        $hash = hash_hmac('sha3-256', $num, $key);
+        $key = hash('sha3-512',random_bytes(16));
+        $hash = hash_hmac('sha3-512', $num, $key);
         Messenger::message("I roll $roller dice, there is a random value\n(HMAC={$hash})\n Choose number under 6");
         while (true) {
             $input = UIDrawer::chooseNumber();

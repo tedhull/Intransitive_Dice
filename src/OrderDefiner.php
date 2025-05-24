@@ -9,8 +9,8 @@ class OrderDefiner
         Messenger::message("Let's figure out who makes the first move!");
         $botNum = rand(0, 1);
         self::$selectedNum = $botNum;
-        $key = bin2hex(openssl_random_pseudo_bytes(32));
-        $hash = hash_hmac('sha3-256', $botNum, $key);
+        $key = hash('sha3-512',random_bytes(16));
+        $hash = hash_hmac('sha3-512', $botNum, $key);
         Messenger::message("I selected a random number in range 0..1\n(HMAC={$hash})\nTry to guess my selection");
         while (true) {
             $userNum = UIDrawer::suggestNumber();
