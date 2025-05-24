@@ -1,0 +1,17 @@
+{
+    "name": "anyman/app",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "tedhull",
+            "email": "jedi.f.sh@gmail.com"
+        }
+    ],
+    "require": {
+        "phplucidframe/console-table": "^1.3"
+    }
+}

@@ -1,4 +1,5 @@
 <?php
+namespace App;
 class OrderDefiner
 {
     public static function DefineOrder()
@@ -11,5 +12,10 @@ class OrderDefiner
         $userNum = UIDrawer::suggestNumber();
         Messenger::message("your num is {$userNum}\nMy num is {$botNum}\n(KEY={$key})\n");
         return $userNum == $botNum;
+    }
+
+    public static function onRespone($num)
+    {
+
     }
 }
