@@ -16,6 +16,7 @@ class DiceValidator
         self::compare($last, $first);
         return $nums;
     }
+
     private static function compare($dieA, $dieB): void
     {
         $countA = array_pop($dieA);
@@ -34,6 +35,7 @@ class DiceValidator
         $winChance = $wins / $total;
         if ($winChance <= 0.5 || $winChance >= 1) throw new \Exception("Dice don't correspond the rules!");
     }
+
     private static function toSortedArrays(array $nums): array
     {
         $result = [];
@@ -42,7 +44,7 @@ class DiceValidator
             ksort($counted);
             $sorted = [];
             foreach ($counted as $val => $count) {
-                if (floor($val) != $val) throw new \Exception("all numbers should be whole!");
+                if (intval($val) != $val || floor($val) != $val) throw new \Exception("all numbers should be whole!");
                 $sorted[] = ['val' => $val, 'count' => $count,];
             }
             $sorted['total'] = array_sum($counted);
@@ -50,6 +52,7 @@ class DiceValidator
         }
         return $result;
     }
+
     public static function explodeDice($strings): array
     {
         $nums = [];
