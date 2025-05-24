@@ -16,7 +16,6 @@ class ProbabilityComputer
         }
         return $map;
     }
-
     private static function winProbability($m, $n, $N)
     {
         $delta = ($n - $m + $N) % $N;

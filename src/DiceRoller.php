@@ -1,5 +1,4 @@
 <?php
-
 namespace App;
 class DiceRoller
 {
@@ -21,7 +20,6 @@ class DiceRoller
                 break;
         }
     }
-
     private static function rollDie($die, string $roller)
     {
         $index = rand(0,count($die)-1);

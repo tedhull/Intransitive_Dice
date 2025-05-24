@@ -1,12 +1,10 @@
 <?php
 require_once 'vendor/autoload.php';
-
 use App\Messenger;
 use App\DiceValidator;
 use App\OrderDefiner;
 use App\DicePicker;
 use App\ProbabilityComputer;
-
 start();
 play();
 function start(): void
@@ -18,7 +16,6 @@ function start(): void
         Messenger::exception($e);
     }
 }
-
 function play(): void
 {
     try {
@@ -28,7 +25,6 @@ function play(): void
         Messenger::exception($e);
     }
 }
-
 function configureDiceData(): void
 {
     $dice = array_splice($_SERVER['argv'], 1);

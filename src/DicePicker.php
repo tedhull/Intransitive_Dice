@@ -1,5 +1,4 @@
 <?php
-
 namespace App;
 class DicePicker
 {
@@ -14,7 +13,6 @@ class DicePicker
         else self::onBotMovesFirst();
         DiceRoller::roll(self::$usersChoice,self::$botsChoice);
     }
-
     private static function onPlayerMovesFirst(): void
     {
         Messenger::message("You move first");
@@ -22,7 +20,6 @@ class DicePicker
         Messenger::message("Now I pick my die");
         self::pickDie(false);
     }
-
     private static function onBotMovesFirst(): void
     {
         Messenger::message("I move first");
@@ -30,7 +27,6 @@ class DicePicker
         Messenger::message("Now you pick your die");
         self::letPlayerPick();
     }
-
     private static function letPlayerPick()
     {
         while (true) {
@@ -41,14 +37,12 @@ class DicePicker
         }
         self::declareChoice(self::$usersChoice, "You");
     }
-
     private static function pickDie(bool $random)
     {
         if ($random) self::pickRandomDie();
         else self::pickBetterDie();
         self::declareChoice(self::$botsChoice, "I");
     }
-
     private static function pickRandomDie(): void
     {
         $choice = rand(0, count(self::$dice) - 1);
@@ -57,15 +51,12 @@ class DicePicker
         self::$dice = array_values(self::$dice);
         $_SERVER['accessible'] = self::$dice;
     }
-
     private static function pickBetterDie(): void
     {
-
         $index = array_search(self::$usersChoice, self::$dice);
         if ($index == array_key_last(self::$dice)) self::$botsChoice = self::$dice[0];
         else self::$botsChoice = self::$dice[$index + 1];
     }
-
     private static function declareChoice($die, string $side)
     {
         $strDie = implode(' ', $die);

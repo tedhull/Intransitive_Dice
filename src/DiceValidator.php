@@ -16,7 +16,6 @@ class DiceValidator
         self::compare($last, $first);
         return $nums;
     }
-
     private static function compare($dieA, $dieB): void
     {
         $countA = array_pop($dieA);
@@ -35,7 +34,6 @@ class DiceValidator
         $winChance = $wins / $total;
         if ($winChance <= 0.5 || $winChance >= 1) throw new \Exception("Dice don't correspond the rules!");
     }
-
     private static function toSortedArrays(array $nums): array
     {
         $result = [];
@@ -52,7 +50,6 @@ class DiceValidator
         }
         return $result;
     }
-
     public static function explodeDice($strings): array
     {
         $nums = [];
